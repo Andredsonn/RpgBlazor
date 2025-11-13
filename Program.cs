@@ -13,10 +13,13 @@ builder.Services.AddScoped(sp => new HttpClient
     BaseAddress = new Uri("https://rpgapids20252.azurewebsites.net/")
 });
 
-builder.Services.AddBlazoredLocalStorage();
-
 //inicialização da classe para uso em outras classes
 builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddBlazoredLocalStorage();
+
+
+builder.Services.AddRazorComponents()
+.AddInteractiveServerComponents();
 
 var app = builder.Build();
 

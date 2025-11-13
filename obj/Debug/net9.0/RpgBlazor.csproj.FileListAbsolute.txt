@@ -79,3 +79,4 @@ C:\Users\andre\Desktop\2DS\DS\RpgBlazor\obj\Debug\net9.0\ref\RpgBlazor.dll
 C:\Users\andre\Desktop\2DS\DS\RpgBlazor\obj\Debug\net9.0\RpgBlazor.csproj.AssemblyReference.cache
 C:\Users\andre\Desktop\2DS\DS\RpgBlazor\bin\Debug\net9.0\Blazored.LocalStorage.dll
 C:\Users\andre\Desktop\2DS\DS\RpgBlazor\obj\Debug\net9.0\RpgBlazor.csproj.Up2Date
+C:\Users\andre\Desktop\2DS\DS\RpgBlazor\obj\Debug\net9.0\RpgBlazor.sourcelink.json

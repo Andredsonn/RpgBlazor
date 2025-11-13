@@ -16,6 +16,21 @@ else if (!string.IsNullOrEmpty(mensagemErro))
     <div class="alert alert-danger">@mensagemErro</div>
 }
 
+<EditForm Model="@usuario" OnValidSubmit="@RegistrarUsuario">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="mb-3">
+        <label>Usuário:</label>
+        <InputText @bind-Value="usuario.Username" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>Senha:</label>
+        <InputText @bind-Value="usuario.PasswordString" type="password" class="form-control"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Registrar</button>
+    <a href="usuarios/Login" class="btn btn-warning">Retornar</a>
+</EditForm>
+
 @code
 {
     private UsuarioViewModel usuario = new();

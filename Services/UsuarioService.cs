@@ -24,14 +24,14 @@ namespace RpgBlazor.Services
             var content = new StringContent(JsonSerializer.Serialize(usuario));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            var response = await _http.PostAsync("usuario/autenticar", content);
+            var response = await _http.PostAsync("usuarios/autenticar", content);
             var responseContent = await response.Content.ReadAsStringAsync();
 
             if (response.IsSuccessStatusCode)
             {
-                var usuarioRetorno = JsonSerializer.Deserialize<UsuarioViewModel>(responseContent, JsonSerializerOptions.Web);
-                return usuarioRetorno ??
-                throw new Exception("Erro ao desserializar resposta da autenticação.");
+                usuario = JsonSerializer
+                .Deserialize<UsuarioViewModel>(responseContent, JsonSerializerOptions.Web);
+                return usuario;
             }
             else
             {
