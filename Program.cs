@@ -15,6 +15,7 @@ builder.Services.AddScoped(sp => new HttpClient
 
 //inicialização da classe para uso em outras classes
 builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddScoped<PersonagemService>();
 builder.Services.AddBlazoredLocalStorage();
 
 
