@@ -2,6 +2,7 @@
 @rendermode InteractiveServer
 @inject RpgBlazor.Services.PersonagemService PersonagemService
 @inject ILocalStorageService LocalStorage
+@inject NavigationManager Navigation
 @using RpgBlazor.Models
 @using Blazored.LocalStorage;
 @if (!string.IsNullOrEmpty(mensagem))
@@ -56,30 +57,40 @@ else
 
 @code {
 
-    private List<PersonagemViewModel> list - nuul;
+    private List<PersonagemViewModel> lista = null;
     private string mensagem = string.Empty;
     private string mensagemErro = string.Empty;
 
     private async Task CarregarPersonagens()
     {
-        var token = await LocalStorage.GetItemAsync(string)("UsuarioToken");
-        lista = await PersonagemService.GetIAllAsync(token);
+        var token = await LocalStorage.GetItemAsync<string>("UsuarioToken");
+        lista = await PersonagemService.GetAllAsync(token);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         try
         {
+
             if(firstRender)
-            await CarregarPersonagens();
+            {
+                if(Id.HasValue && Id > 0 )
+                {
+                    var token = await LocalStorage.GetItemAsync<string>("UsuarioToken");
+                    personagem = await PersonagemService.GetByIdAsync(token, Id.Value);
+
+                    if(0 personagem == null)
+                    {
+                        mensagemErro = "Personagem não encontrado";
+                        personagem = new();
+                    }                                
+                }
+                StateHasChanged();
+            }
         }
         catch (Exception ex)
         {
             mensagemErro = ex.Message;
-        }
-        finally
-        {
-            StateHasChancge();
         }
     }
 }

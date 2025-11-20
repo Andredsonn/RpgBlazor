@@ -6,22 +6,23 @@ using RpgBlazor.Models;
 using System.Text.Json;
 using System.Net.Http.Headers;
 
+
 namespace RpgBlazor.Services
 {
     public class PersonagemService
     {
         private readonly HttpClient _http;
 
-        public PersonagemService(HttpClent http)
+        public PersonagemService(HttpClient http)
         {
             _http = http;   
         }
-    }
+    
 
-    public async TASK<List<PersonagemViewModel>> GetAllAsync(string token)
+    public async Task<List<PersonagemViewModel>> GetAllAsync(string token)
     {
         _http.DefaultRequestHeaders.Authorization = 
-        new AuthenticationHeadersValue("Bearer", token);
+        new AuthenticationHeaderValue("Bearer", token);
 
         var response = await _http.GetAsync("Personagens/GetAll");
         var responseContent = await response.Content.ReadAsStringAsync();
@@ -29,8 +30,7 @@ namespace RpgBlazor.Services
 
         if(response.IsSuccessStatusCode)
         {
-            lista = JsonSerealizer
-                .Deserialize<List<PersonagemViewModel>>(responseContent, JsonSerealizerOptions.Web);
+            lista = JsonSerializer.Deserialize<List<PersonagemViewModel>>(responseContent, JsonSerializerOptions.Web);
                 return lista;
         }
         else
@@ -41,18 +41,19 @@ namespace RpgBlazor.Services
 
     public async Task<PersonagemViewModel> InsertAsync(string token, PersonagemViewModel personagem)
     {
+        
         _http.DefaultRequestHeaders.Authorization = 
-        new stringConten(JsonSerealizer.Serialize(personagem));
-
-        var Content = new StringContent(JsonSerealizer.Serialize(personagem));
-        content.Headers.ContentType - new MediaTypeHeadersValue("application/json");
+        new AuthenticationHeaderValue("Bearer", token);      
+    
+        var content = new StringContent(JsonSerializer.Serialize(personagem));
+        content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
         var response = await _http.PostAsync("personagens", content);
         var responseContent= await response.Content.ReadAsStringAsync();
 
         if(response.IsSuccessStatusCode)
         {
-            personagem.Id = convert.ToInt32(responseContent);
+            personagem.Id = Convert.ToInt32(responseContent);
             return personagem;
         }
         else
@@ -60,4 +61,52 @@ namespace RpgBlazor.Services
             throw new Exception(responseContent);
         }
     }
+
+    public async Task<PersonagemViewModel> GetByIdAsync(string token, int id)
+    {
+        
+        _http.DefaultRequestHeaders.Authorization = 
+        new AuthenticationHeaderValue("Bearer", token);      
+            
+        var response = await _http.GetAsync($"personagens/{id}");
+        var responseContent= await response.Content.ReadAsStringAsync();
+
+        if(response.IsSuccessStatusCode)
+        {
+            personagem = JsonSerializer
+                .Deserialize<List<PersonagemViewModel>>(responseContent, JsonSerializerOptions.Web);
+                return lista;
+        }
+        }
+        else
+        {
+            throw new Exception(responseContent);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+    
 }
